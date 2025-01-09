@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Gugi&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/vue@3"></script>
+</head>
+<body>
+<header id="menu" >
+    <button 
+      id="toggle-btn" 
+      class="toggle-btn" 
+      :class="{'menu-open': sidebarVisible}" 
+      @click="toggleSidebar"
+    >
+        <!-- 사이드바 열려있을 때 ◁로 변경, 아닐 때 ▷ 표시 -->
+        <span v-if="sidebarVisible">◁</span>
+        <span v-else>▷</span>
+    </button>
+
+    <div class="sidebar" :class="{'sidebar-open': sidebarVisible}" id="sidebar">
+        <nav>
+            <ul>
+                <li style="text-align: center;">
+                    <a href="/">
+                        <img src="{{ url_for('static', filename='image/logo_youtrue5.png') }}" 
+                             alt="홈 로고" 
+                             style="height:100px; display:block; margin:0 auto;">
+                    </a>
+                </li>
+                <li><a href="/index" style="font-size:20px; margin:0 auto;">검색</a></li>
+                <li><a href="/lobby" style="font-size:20px; margin:0 auto;">채팅방</a></li>
+            </ul>
+        </nav>
+
+        <!-- 태그 박스 영역 추가 -->
+        <div class="tag-box-container">
+            <div class="tag-box">
+                <span class="tag-item" @click="selectTag('음악')">음악</span>
+                <span class="tag-item" @click="selectTag('뉴스')">뉴스</span>
+                <span class="tag-item" @click="selectTag('게임')">게임</span>
+                <span class="tag-item" @click="selectTag('관광')">관광</span>
+                <span class="tag-item" @click="selectTag('요리')">요리</span>
+                <span class="tag-item" @click="selectTag('먹방')">먹방</span>
+            </div>
+        </div>
+        
+        
+        <!-- 인기급상승 검색어 박스 -->
+        <div  class="trending-box">
+            <h3 class="trending-title">인기급상승 검색어</h3>
+            <p class="trending-subtitle">현재 기준 사용자들이 가장 많이 검색하는 키워드입니다.</p>
+            <ul class="trending-list">
+                {% raw %}
+                <li v-for="(keyword, index) in trendingList" :key="index">
+                    <span class="rank">{{ index + 1 }}</span> <span class="keyword">{{ keyword }}</span>
+                    <span class="change plus">+</span>
+                </li>
+                {% endraw %}
+            </ul>
+            <p class="trending-date" v-text="trendingDate"></p>
+          </div>
+    </div>
+</header>
+</body>
+</html>
+

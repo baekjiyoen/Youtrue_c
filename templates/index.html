@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>검색페이지</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Gugi&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/vue@3" defer></script>
+    <script src="{{ url_for('static', filename='js/index.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/menu.js') }}" defer></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7311759917249115"
+     crossorigin="anonymous"></script>
+</head>
+<body>
+<!-- 눈 내리는 효과 -->
+<div class="snowflakes" aria-hidden="true">
+  <div class="snowflake">❄</div>
+  <div class="snowflake">❄</div>
+  <div class="snowflake">❄</div>
+  <div class="snowflake">❄</div>
+  <div class="snowflake">❄</div>
+  <div class="snowflake">❄</div>
+  <div class="snowflake">❄</div>
+  <div class="snowflake">❄</div>
+</div>
+
+<div id="menu">
+    {% include "menu.html" %}
+</div>
+<div id="app">
+    <header>
+        <div class="banner">
+            <h1>
+                <span>Y</span>
+                <span>O</span>
+                <span>U</span>
+                <span>T</span>
+                <span>R</span>
+                <span>U</span>
+                <span>E</span>
+            </h1>
+            <p class="banner-subtitle">
+                동영상 검색 <span class="highlight-ok">ok!</span> 자막 <span class="highlight-ok">ok!</span> 
+                라이브 아니어도 소통가능 채팅 <span class="highlight-ok">ok!</span> 
+                <span class="highlight-special"> 싹쓰리!</span> 즐겨보세요
+            </p>
+        </div> 
+    </header>            
+
+    <section class="main-section">
+        <!-- 검색영역 (기존 코드 유지) -->
+        <div class="search-area" ref="searchArea" :class="viewState">
+            <div class="search-input-group">
+                <input class="search-input" type="text" v-model="searchInput" @keydown.enter="search" placeholder="검색어를 입력하세요" />
+                <button @click="search" class="search-button">검색</button>
+            </div>
+
+            <div v-if="isLoading" class="spinner">
+                <div class="loader"></div>
+                <p>검색 중...</p>
+            </div>
+
+            <div v-else>
+                <div v-if="videoResults.length > 0" class="results">
+                    <p class="results-title">검색 결과</p>
+                    <ul class="video-list">
+                        {% raw %}
+                        <li v-for="(video_detail, index) in videoResults.slice(0,10)" :key="index" class="video-item">
+                            <a :href="'loading?video_id=' + video_detail.video_id" class="video-link">
+                                <img 
+                                    :src="video_detail.thumbnail_url" 
+                                    :alt="video_detail.title"
+                                    class="video-thumbnail"
+                                />
+                            </a>
+                            <div class="video-info">
+                                <p><strong>제목:</strong> {{ video_detail.title }}</p>
+                                <p><strong>길이:</strong> {{ video_detail.duration }}</p>
+                                <p><strong>등록일:</strong> {{ video_detail.published_at }}</p>
+                                <p><strong>조회:</strong> {{ video_detail.view_count }}</p>
+                                <p><strong>좋아요:</strong> {{ video_detail.like_count }}</p>
+                                <p><strong>지원자막:</strong> {{ video_detail.captions_info }}</p>
+                            </div>
+                        </li>
+                        {% endraw %}
+                    </ul>
+                </div>            
+                <div v-else class="no-results">
+                    <p>검색결과가 없습니다.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 추천 영상 영역 -->
+        {% raw %}
+        <div class="recommended-section" v-if="recommendedVideos.length > 0">
+            <p class="recommended-title">추천 영상</p>
+            <div class="recommended-container" ref="scrollContainer">
+                <div class="slide-track">
+                    <div class="recommended-card" v-for="(video, idx) in recommendedVideos" :key="idx">
+                        <a :href="'loading?video_id=' + video.video_id">
+                            <img :src="video.thumbnail_url" :alt="video.video_title">
+                        </a>
+                        <p>{{ truncatedTitle(video.video_title, 20) }}</p>
+                    </div>
+                    <div class="recommended-card" v-for="(video, idx) in recommendedVideos" :key="'dup-' + idx">
+                        <a :href="'loading?video_id=' + video.video_id">
+                            <img :src="video.thumbnail_url" :alt="video.video_title">
+                        </a>
+                        <p>{{ truncatedTitle(video.video_title, 20) }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endraw %}
+
+        <!-- 추천 채널 영역 -->
+        {% raw %}
+        <div class="popular-channels-section" v-if="recommendedVideos.length > 0">
+            <p class="popular-channels-title">인기 채널</p>
+            <div class="popular-channels-container">
+                <div class="popular-channel-card" v-for="(video, idx) in recommendedVideos" :key="idx">
+                    <a :href="'https://www.youtube.com/channel/' + video.channel_id" target="_blank" rel="noopener noreferrer">
+                        <img :src="video.profile_image_url" :alt="video.channel_title" class="channel-thumbnail">
+                    </a>
+                    <p class="channel-title">{{ truncatedTitle(video.channel_title, 20) }}</p>
+                </div>
+            </div>
+        </div>
+        {% endraw %}
+    </section>
+</div>
+</body>
+</html>

@@ -1,0 +1,9 @@
+__pycache__/
+*/__pycache__/
+important/02_MJ
+important/03_JY
+important/04_GM
+data/
+ffmpeg/
+venv/
+model/

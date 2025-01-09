@@ -1,0 +1,152 @@
+/* 헤더 고정 */
+#menu header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #f0f0f0;
+    box-sizing: border-box;
+    z-index: 9999;
+  }
+  
+  /* 사이드바 */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100vh;
+    background: #333;
+    transition: left 0.3s ease;
+    overflow-y: auto;
+    box-sizing: border-box;
+    padding-top: 40px;
+    z-index: 1001;
+  }
+  
+  .sidebar-open {
+    left: 0;
+    transition: left 0.3s ease;
+  }
+  
+  /* 태그 박스 컨테이너 */
+  .tag-box-container {
+    padding: 15px;
+    border-bottom: 1px solid #444;
+    background: linear-gradient(to right, #07034a, #2f0242);
+  }
+  
+  /* 태그 박스 */
+  .tag-box {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  /* 개별 태그 */
+  .tag-item {
+    display: inline-block;
+    padding: 4px 6px;
+    background: linear-gradient(to right, #6e01a8, #9000ff);
+    color: #fff;
+    font-size: 14px;
+    border-radius: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: transform 0.3s ease, background 0.3s ease;
+  }
+  
+  .tag-item:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+    background: linear-gradient(to right, #9000ff, #6e01a8);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* 인기급상승 검색어 박스 */
+  .trending-box {
+    border-top: 1px solid #444;
+    padding: 15px;
+    color: #fff;
+    background-color: #333;
+    font-family: 'Gugi', sans-serif;
+  }
+  
+  .trending-title {
+    font-size: 18px;
+    margin: 0;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .trending-subtitle {
+    font-size: 12px;
+    margin: 0 0 10px 0;
+    color: #ccc;
+  }
+  
+  .trending-date {
+    font-size: 12px;
+    color: #aaa;
+    margin: 0 0 10px 0;
+  }
+  
+  .trending-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .trending-list li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  
+  .trending-list .rank {
+    display: inline-block;
+    width: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #f0f0f0;
+  }
+  
+  .trending-list .keyword {
+    flex: 1;
+    font-size: 14px;
+    margin-left: 5px;
+    color: #fff;
+  }
+  
+  .trending-list .change {
+    font-size: 14px;
+    margin-left: 10px;
+    color: #fff;
+  }
+  
+  .change.plus {
+    color: #4caf50;
+  }
+  
+  .change.minus {
+    color: #f44336;
+  }
+  
+  .change.neutral {
+    color: #ccc;
+  }
+  
+  /* 힌트 표시줄 */
+  #hover-area {
+    position: fixed;
+    left: 0;
+    top: 50%;
+    width: 30px;
+    height: 120px;
+    background: rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    z-index: 1003;
+  }
+  

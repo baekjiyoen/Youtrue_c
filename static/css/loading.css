@@ -1,0 +1,118 @@
+body, html {
+  margin: 0; 
+  padding: 0; 
+  height:100%; 
+  overflow: hidden;
+  font-family: 'Arial', sans-serif;
+}
+
+.loading-container {
+  position: fixed; 
+  z-index: 99999; 
+  top:0; 
+  left:0;
+  width:100vw; 
+  height:100vh; 
+  background:#ffffff;
+  display:flex; 
+  flex-direction: column;
+  align-items:center; 
+  justify-content:center; 
+  text-align: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* 이미지의 최대 크기를 제한하고 반응형으로 조정 */
+.loading-image {
+  width: 40%; /* 화면의 40% 폭 사용 */
+  max-width: 400px; 
+  height: auto;
+  margin-bottom: 20px;
+}
+
+/* 텍스트 스타일 */
+.loading-text {
+  font-size: 1.5em;
+  font-weight: bold;
+  background: linear-gradient(45deg, #ff0066, #00ff99, #0066ff, #ffcc00);
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: glow 2s ease-in-out infinite;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+/* 메인 텍스트 크기 */
+.main-text {
+  font-size: 2em;
+}
+
+/* 서브 텍스트 */
+.sub-text {
+  font-size: 1.2em;
+}
+
+/* 프로그레스 퍼센티지 */
+.progress-percentage {
+  font-size: 1.5em;
+}
+
+/* 프로그레스 바 스타일 */
+.progress-bar-container {
+  width: 80%;
+  max-width: 500px;
+  height: 20px;
+  background: #eee;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 20px 0;
+  position: relative;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #ff0066, #ffcc00);
+  transition: width 0.5s;
+}
+
+@keyframes glow {
+  0% { text-shadow: 0 0 10px #ff0066; }
+  25% { text-shadow: 0 0 10px #00ff99; }
+  50% { text-shadow: 0 0 10px #0066ff; }
+  75% { text-shadow: 0 0 10px #ffcc00; }
+  100% { text-shadow: 0 0 10px #ff0066; }
+}
+
+/* 모바일 최적화 (600px 이하) */
+@media (max-width: 600px) {
+  /* 이미지 더 크게 */
+  .loading-image {
+    width: 70%;
+    max-width: none; /* 최대 폭 제한 해제 */
+  }
+
+  .loading-text.main-text {
+    font-size: 1.8em; /* 조금만 줄여도 전체 스케일감 상승 */
+  }
+  
+  .loading-text.sub-text {
+    font-size: 1.2em; /* 서브 텍스트도 살짝 키우거나 유지 */
+    margin-bottom: 15px; 
+  }
+  
+  .progress-bar-container {
+    width: 90%; /* 모바일에서는 좀 더 넓게 */
+    margin: 15px 0;
+  }
+  
+  .progress-percentage {
+    font-size: 1.3em;
+  }
+  
+  /* 전체적으로 패딩도 약간 조정 */
+  .loading-container {
+    padding: 10px;
+  }
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- 모바일 최적화를 위한 viewport 메타 태그 추가 -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  const videoSrc = "{{ url_for('static', filename='video/loading.mp4') }}";
+</script>
+<script src="{{ url_for('static', filename='js/loading.js') }}" defer></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/loading.css') }}">
+
+<title>Loading</title>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7311759917249115"
+     crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="loading-container" id="loadingContainer">
+  <img src="{{ url_for('static', filename='image/logo_youtrue3.png') }}" alt="로딩중" class="loading-image" id="loadingImage">
+  <div class="loading-text main-text">자막정보를 불러오고 있어요</div>
+  <div class="loading-text sub-text">잠시만 기다려주세요</div>
+
+  <!-- 프로그레스 바 추가 -->
+  <div class="progress-bar-container">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+  <div class="loading-text progress-percentage" id="progressText">0%</div>
+</div>
+</body>
+</html>

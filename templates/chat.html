@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Chat with Video</title>
+    <!-- Vue 3 CDN -->
+    <script src="https://unpkg.com/vue@3"></script>
+    <!-- Socket.IO Client -->
+    <script src="https://cdn.socket.io/4.5.3/socket.io.min.js"></script>
+    <!-- YouTube IFrame API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}">
+    <script src="{{ url_for('static', filename='js/menu.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/chat.js') }}" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Gugi&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Chewy&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7311759917249115"
+    crossorigin="anonymous"></script>
+
+</head>
+<body>
+<div id="menu">
+  {% include "menu.html" %}
+</div>
+
+<div id="app">
+  <!-- 닉네임 설정 화면 -->
+  <div v-if="!isUsernameSet" class="username-setup">
+    <div class="form-container">
+      <div class="logo-container">닉네임을 설정해주세요</div>
+      <form class="form">
+        <div class="form-group">
+          
+      <input type="text" v-model="username" @keydown.enter="confirmUsername" placeholder="닉네임을 입력하세요" maxlength="10">
+      </div>
+      <button type="submit" @click="confirmUsername" class="form-submit-btn">확인</button>
+      
+    </form>
+    </div>
+  </div>
+  
+  <!-- 메인 레이아웃 -->
+  <div v-else class="main-container">
+    <!-- 상단 바: 사용자 목록 토글 버튼 -->
+    <div class="top-bar">
+      <button class="toggle-user-list-btn" @click="toggleUserList">
+        <img src="/static/image/user.png" alt="user-icon" class="user-icon">
+      </button>
+      <button class="exit-btn" @click="exitApp">
+        <img src="/static/image/exit.png" alt="exit-icon" class="exit-icon">
+      </button>
+    </div>
+
+    <!-- 사용자 목록 패널 -->
+    <div class="left-panel" :class="{ open: isMenuOpen }">
+      <div class="user-list-area">
+        <p class="user-list-title">사용자 목록</p>
+        <ul>
+          {% raw %}
+          <li v-for="(user, index) in users" :key="index">{{ user }}</li>
+          {% endraw %}
+        </ul>
+      </div>
+    </div>
+
+    <!-- 메인 컨텐츠 영역 -->
+    <div class="main-content">
+      <!-- 비디오 & 검색 영역 -->
+      <div class="video-search-section">
+        <!-- 비디오 영역 (왼쪽) -->
+        <div class="video-area">
+          <div id="player"></div>
+          <div class="video-controls">
+            <button @click="playVideo">재생</button>
+            <button @click="pauseVideo">일시정지</button>
+          </div>
+        </div>
+        
+        <!-- 검색 영역 (오른쪽) -->
+        <div class="search-area">
+          <div class="search-input-group">
+              <input class="search-input" type="text" v-model="searchInput" @keydown.enter="search" placeholder="검색어를 입력하세요" />
+              <button @click="search" class="search-button">검색</button>
+          </div>
+
+          <div v-if="isLoading" class="spinner">
+              <div class="loader"></div>
+              <p>검색 중...</p>
+          </div>
+
+          <div v-else>
+              <div v-if="videoResults.length > 0" class="results">
+                  <p class="results-title">검색 결과</p>
+                  <!-- 검색 결과 리스트 -->
+                  <ul class="video-list">
+                    {% raw %}
+                    <li v-for="(video_detail, index) in videoResults.slice(0,10)" :key="index" class="video-item">
+                      <!-- 영상 클릭 시 selectVideo 메서드 호출 -->
+                      <a href="#" @click.prevent="selectVideo(video_detail.video_id)" class="video-link">
+                        <img 
+                          :src="video_detail.thumbnail_url" 
+                          :alt="video_detail.title"
+                          class="video-thumbnail"
+                        />
+                      </a>
+                      <div class="video-info">
+                        <p class="video-title">{{ truncatedTitle(video_detail.title, 20) }}</p>
+                        <p class="video-meta">길이: {{ video_detail.duration }} | 등록일: {{ video_detail.published_at }}</p>
+                        <p class="video-meta">조회: {{ video_detail.view_count }} | 좋아요: {{ video_detail.like_count }}</p>
+                        <p class="video-meta">자막: {{ video_detail.captions_info }}</p>
+                      </div>
+                      
+                    </li>
+                    {% endraw %}
+                  </ul>
+                </div>            
+              <div v-else class="no-results">
+                  <p>검색결과가 없습니다.</p>
+              </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 채팅 영역 (고정 높이) -->
+      <div class="chat-area">
+        <div id="chatMessages" ref="chatMessages" class="chat-messages">
+          {% raw %}
+          <div 
+            v-for="(msg, index) in messages" 
+            :key="index" 
+            :class="['message', msg.isMe ? 'my-message' : '']">
+            
+            <!-- "나"일 때와 아닐 때 조건적으로 렌더링 -->
+            <div class="sender">
+              <span v-if="msg.isMe">{{ msg.sender }}(나)</span>
+              <span v-else>{{ msg.sender }} </span>
+            </div>
+            
+            <div class="text" v-html="msg.text">{{ msg.text }}</div>
+          </div>
+          {% endraw %}
+        </div>
+        
+        <div class="input-area">
+          <!-- <input v-model="newMessage" @keydown.enter="sendMessage"  placeholder="메시지를 입력하세요"> -->
+        <div
+          id="messageInput" 
+          class="editable-input" 
+          contenteditable="true" 
+          placeholder="메시지를 입력하세요"
+          ref="messageInput"
+          @keydown.enter.prevent="sendMessage">
+        </div>
+          <button @click="sendMessage">전송</button>
+          <button @click="toggleEmojiPanel" class="emoji-toggle-btn">😊</button>
+        </div>
+
+        <div v-if="isEmojiPanelVisible" class="emoji-panel">
+          <div v-for="(emoji, index) in emojis" 
+              :key="index" 
+              class="emoji" 
+              @click="addEmojiToInput(emoji.src)"
+              @keydown.enter="sendMessage">
+            <img :src="emoji.src" :alt="emoji.name" class="emoji-img">
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

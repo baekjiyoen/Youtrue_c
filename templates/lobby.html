@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>채팅방 목록</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/lobby.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="{{ url_for('static', filename='js/menu.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/lobby.js') }}" defer></script>
+    <!-- Socket.IO Client -->
+    <script src="https://cdn.socket.io/4.5.3/socket.io.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Gugi&display=swap" rel="stylesheet">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7311759917249115"
+     crossorigin="anonymous"></script>
+</head>
+<body>
+  <!-- 눈 내리는 효과 -->
+  <div class="snowflakes" aria-hidden="true">
+    <div class="snowflake">❄</div>
+    <div class="snowflake">❄</div>
+    <div class="snowflake">❄</div>
+    <div class="snowflake">❄</div>
+    <div class="snowflake">❄</div>
+    <div class="snowflake">❄</div>
+    <div class="snowflake">❄</div>
+    <div class="snowflake">❄</div>
+  </div>
+
+    <div id="menu">
+      {% include "menu.html" %}
+    </div>
+
+
+    <div id="app" class="lobby-container">
+      <div class="banner">
+          <h1>
+            <h1>
+              <span>Y</span>
+              <span>O</span>
+              <span>U</span>
+              <span>T</span>
+              <span>R</span>
+              <span>U</span>
+              <span>E</span>
+          </h1>
+          </h1>
+          <p class="banner-subtitle">
+            동영상 검색 <span class="highlight-ok">ok!</span> 자막 <span class="highlight-ok">ok!</span> 
+            라이브 아니어도 소통가능 채팅 <span class="highlight-ok">ok!</span> 
+            <span class="highlight-special"> 싹쓰리!</span> 즐겨보세요
+          </p>
+      </div> 
+          
+
+    
+        <!-- 좌측 패널 -->
+        <div class="center-panel">
+          <div class="room-list">
+            <img src="/static/image/lobby.png" class="lobby-image">
+          <h1>채팅방목록</h1>  
+
+            <div class="create-room-section">
+              <input type="text" v-model="roomName" @keydown.enter="createRoom" placeholder="방 이름" maxlength="15"
+              @focus="showTooltip = true" @blur="showTooltip = false" >
+              <div 
+              class="tooltip" 
+              :class="{ 'tooltip-visible': showTooltip || isHovered }"
+              @mouseover="isHovered = true" 
+              @mouseleave="isHovered = false" >
+              방 이름은 15자 내외로 입력 가능합니다
+              
+            </div>
+            <div class="refresh-btn">
+              <button @click="createRoom">
+                <img src="/static/image/createroom.png"
+                      alt="생성" class="createroom-icon"></button>
+                      <button @click="loadRooms">
+                        <img src="/static/image/refresh.jpg"
+                        alt="목록 새로고침" class="refresh-icon"></button>        
+              </div>
+          </div>
+
+            
+    
+              <h2>방 목록</h2>
+              <ul>
+                {% raw %}
+                <li v-for="room in rooms" :key="room.id">
+                  {{ room.name }} 
+                  <!-- {{ room.video_id }} --> 
+
+                  <button class="join-room-btn" @click="goToChat(room.id)">
+                  <img src="/static/image/join-room.png " alt="입장" class="joinroom-icon"></button>
+                </li>
+                {% endraw %}
+              </ul>
+          </div>
+        </div>
+        </div>
+    
+</body>
+</html>

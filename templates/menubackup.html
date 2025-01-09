@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>네비게이션 바</title>
+    <link href="https://fonts.googleapis.com/css2?family=Gugi&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="menu.css">
+</head>
+<body>
+    <div id="menu">
+        <!-- 헤더 고정 -->
+        <header>
+            <!-- 힌트 표시줄 -->
+            <div id="hover-area" @mouseenter="handleMouseEnter"></div>
+        </header>
+
+        <!-- 사이드바 -->
+        <div class="sidebar" :class="{'sidebar-open': sidebarVisible}" id="sidebar">
+            <nav>
+                <ul>
+                    <li style="text-align: center;">
+                        <a href="/">
+                            <img src="{{ url_for('static', filename='image/logo_youtrue5.png') }}" 
+                                 alt="홈 로고" 
+                                 style="height:100px; display:block; margin:0 auto;">
+                        </a>
+                    </li>
+                    <li><a href="/index" style="font-size:20px; margin:0 auto;">검색</a></li>
+                    <li><a href="/lobby" style="font-size:20px; margin:0 auto;">채팅방</a></li>
+                </ul>
+            </nav>
+
+            <!-- 태그 박스 영역 -->
+            <div class="tag-box-container">
+                <div class="tag-box">
+                    <span class="tag-item" @click="selectTag('음악')">음악</span>
+                    <span class="tag-item" @click="selectTag('뉴스')">뉴스</span>
+                    <span class="tag-item" @click="selectTag('게임')">게임</span>
+                    <span class="tag-item" @click="selectTag('관광')">관광</span>
+                    <span class="tag-item" @click="selectTag('요리')">요리</span>
+                    <span class="tag-item" @click="selectTag('먹방')">먹방</span>
+                </div>
+            </div>
+            
+            <!-- 인기급상승 검색어 박스 -->
+            <div class="trending-box">
+                <h3 class="trending-title">인기급상승 검색어</h3>
+                <p class="trending-subtitle">현재 기준 사용자들이 가장 많이 검색하는 키워드입니다.</p>
+                <p class="trending-date">2024년 12월 18일 수요일 오후 4:06</p>
+                <ul class="trending-list">
+                    <li>
+                        <span class="rank">1</span> <span class="keyword">검색어1</span> <span class="change plus">+</span>
+                    </li>
+                    <li>
+                        <span class="rank">2</span> <span class="keyword">검색어2</span> <span class="change plus">+</span>
+                    </li>
+                    <li>
+                        <span class="rank">3</span> <span class="keyword">검색어3</span> <span class="change minus">-</span>
+                    </li>
+                    <li>
+                        <span class="rank">4</span> <span class="keyword">검색어4</span> <span class="change neutral">•</span>
+                    </li>
+                    <li>
+                        <span class="rank">5</span> <span class="keyword">검색어5</span> <span class="change plus">+</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.2.47/dist/vue.global.prod.js"></script>
+    <script src="menu.js"></script>
+</body>
+</html>

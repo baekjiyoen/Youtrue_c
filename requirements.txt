@@ -1,0 +1,15 @@
+numpy<2
+flask
+flask_socketio
+google-generativeai
+youtube_transcript_api
+qrcode
+googletrans
+eventlet
+isodate
+mysql-connector-python
+redis
+rq
+evaluate
+transformers
+torch

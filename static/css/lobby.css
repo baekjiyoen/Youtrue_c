@@ -1,0 +1,460 @@
+/* 전역 스타일 */
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Noto Sans KR', sans-serif;
+  background:
+    /* 캔디케인 스트라이프 패턴 */
+    repeating-linear-gradient(45deg,
+      rgba(255,255,255,0.05),
+      rgba(255,255,255,0.05) 10px,
+      rgba(178,34,34,0.15) 10px,
+      rgba(178,34,34,0.15) 20px
+    ),
+    /* 좌상단 트리 녹색 빛 */
+    radial-gradient(circle at top left, rgba(0,128,0,0.3), transparent 50%),
+    /* 우상단 황금빛 장식 */
+    radial-gradient(circle at top right, rgba(255,215,0,0.1), transparent 40%),
+    /* 하단 우측 흰색 광채 */
+    radial-gradient(circle at bottom right, rgba(255,255,255,0.2), transparent 50%),
+    /* 기본 붉은 배경 */
+    #b22222;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+/* 눈 내리는 효과 */
+.snowflakes {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.snowflake {
+  position: absolute;
+  top: -10%;
+  font-size: 1.5rem;
+  color: #fff;
+  animation-name: snow;
+  animation-duration: 10s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes snow {
+  0% { transform: translateY(0); opacity:1; }
+  80% { opacity:1; }
+  100% { transform: translateY(100vh); opacity:0; }
+}
+
+.snowflake:nth-child(1) { left: 10%; animation-delay: 0s; }
+.snowflake:nth-child(2) { left: 20%; animation-delay: 2s; }
+.snowflake:nth-child(3) { left: 30%; animation-delay: 4s; }
+.snowflake:nth-child(4) { left: 50%; animation-delay: 1s; }
+.snowflake:nth-child(5) { left: 65%; animation-delay: 3s; }
+.snowflake:nth-child(6) { left: 75%; animation-delay: 5s; }
+.snowflake:nth-child(7) { left: 85%; animation-delay: 1.5s; }
+.snowflake:nth-child(8) { left: 95%; animation-delay: 2.5s; }
+
+/* 컨테이너 스타일 */
+.lobby-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-height: 100vh;
+  padding: 10px;
+  color: #333;
+  font-family: 'Gugi', sans-serif;
+}
+
+/* 배너 스타일 */
+.banner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #fff; /* 텍스트 색상 */
+  padding: 20px 20px; /* 상하/좌우 패딩 */
+  height: 180px;
+  border-radius: 10px; /* 배너 모서리 둥글게 */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+  margin: 20px auto; /* 상하 여백 및 가운데 정렬 */
+  max-width: 730px; /* 최대 너비 설정 */
+  width: 500%;
+  position: relative;
+  overflow: hidden; /* 별 배경 잘라내기 */
+  background: url('/static/image/star\ image.jpg') repeat; /* 별 이미지 반복 */
+  animation: twinkle-stars 10s linear infinite; /* 배경 반짝이는 애니메이션 */
+}
+
+/* 별 배경 움직이기 */
+@keyframes twinkle-stars {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 50px 50px;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+h1 {
+  height: 100px;
+}
+
+h1 span {
+  position: relative;
+  display: inline-block;
+  animation: bounce 2s ease infinite alternate;
+  font-family: 'Gugi', cursive;
+  font-size: 80px;
+  padding-top: 20px;
+  color: #FFF;
+  text-shadow: 0 1px 0 #CCC,
+               0 2px 0 #CCC,
+               0 3px 0 #CCC,
+               0 4px 0 #CCC,
+               0 5px 0 #CCC,
+               0 6px 0 transparent,
+               0 7px 0 transparent,
+               0 8px 0 transparent,
+               0 9px 0 transparent,
+               0 10px 10px rgba(0, 0, 0, .4);
+}
+
+h1 span:nth-child(2) { animation-delay: .1s; }
+h1 span:nth-child(3) { animation-delay: .2s; }
+h1 span:nth-child(4) { animation-delay: .3s; }
+h1 span:nth-child(5) { animation-delay: .4s; }
+h1 span:nth-child(6) { animation-delay: .5s; }
+h1 span:nth-child(7) { animation-delay: .6s; }
+h1 span:nth-child(8) { animation-delay: .7s; } 
+
+@keyframes bounce {
+  100% {
+    top: -5px;
+    text-shadow: 0 1px 0 #CCC,
+                 0 2px 0 #CCC,
+                 0 3px 0 #CCC,
+                 0 4px 0 #CCC,
+                 0 5px 0 #CCC,
+                 0 6px 0 #CCC,
+                 0 7px 0 #CCC,
+                 0 8px 0 #CCC,
+                 0 9px 0 #CCC,
+                 0 50px 25px rgba(0, 0, 0, .2);
+  }
+}
+
+.banner-subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 5%;
+  opacity: 0.9;
+  font-weight: 300;
+  font-family: 'Gugi';
+}
+
+.highlight-ok {
+  color: #ff3333;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.highlight-special {
+  color: #ff1e1e;
+  font-weight: bold;
+  font-size: 1.2em;
+  text-shadow: 2px 2px 4px rgb(255, 239, 239);
+}
+
+/* 메인 컨텐츠 영역 */
+.center-panel {
+  width: 100%;
+  max-width: 800px;
+  margin: 20px auto;
+  box-sizing: border-box;
+  overflow-y: auto;
+  font-size: 1rem;
+  color: #333;
+}
+
+/* 방 리스트 카드 */
+.room-list {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  padding: 20px;
+  margin:auto;
+}
+
+.room-list h1 {
+  margin-bottom: 20px;
+  font-size: 1.8em;
+  text-align: center;
+  color: #333;
+  height: 100%;
+}
+
+/* 방 생성 섹션 */
+.create-room-section {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  width: 100%;
+  
+}
+
+.create-room-section input {
+  padding: 10px;
+  height: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #555;
+  outline: none;
+  flex: 1;
+}
+.create-room-section input:focus{
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* 새로고침, 생성 버튼 컨테이너 */
+.refresh-btn {
+  display: flex;
+  gap: 10px;
+}
+
+.refresh-btn button,
+.join-room-btn,
+.createroom-btn button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  transition: background 0.2s ease;
+}
+
+.refresh-btn button:hover,
+.join-room-btn:hover,
+.createroom-btn button:hover {
+  background: rgba(0,0,0,0.05);
+  border-radius: 4px;
+}
+
+.refresh-icon,
+.createroom-icon,
+.joinroom-icon {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  display: block;
+}
+
+/* 방 목록 */
+.room-list h2 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 1.2em;
+  color: #333;
+}
+
+.room-list ul {
+  list-style: none;
+  padding: 10px;
+  margin-bottom: 10px;
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+
+}
+
+.room-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.room-list li:last-child {
+  border-bottom: none;
+}
+
+/* 스크롤바 스타일 */
+.room-list ul::-webkit-scrollbar {
+  width: 6px;
+}
+
+.room-list ul::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 3px;
+}
+
+/* 툴팁 */
+.tooltip {
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  background-color: #333;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 5px;
+  font-size: 0.7rem;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 100;
+}
+
+.tooltip-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .banner {
+    padding: 30px 10px;
+    width: 95%;
+    height: 150px;
+    font-family: 'Gugi';
+    justify-content: flex-end;
+  }
+
+  h1 {
+    height: 100px;
+  }
+  
+  h1 span {
+    position: relative;
+    top: 20px;
+    display: inline-block;
+    animation: bounce  ease infinite alternate;
+    font-family: 'Gugi', cursive;
+    font-size: 50px;
+    color: #FFF;
+    text-shadow: 0 1px 0 #CCC,
+                 0 2px 0 #CCC,
+                 0 3px 0 #CCC,
+                 0 4px 0 #CCC,
+                 0 5px 0 #CCC,
+                 0 6px 0 transparent,
+                 0 7px 0 transparent,
+                 0 8px 0 transparent,
+                 0 9px 0 transparent,
+                 0 10px 10px rgba(0, 0, 0, .4);
+  }
+  
+  h1 span:nth-child(2) { animation-delay: .1s; }
+  h1 span:nth-child(3) { animation-delay: .2s; }
+  h1 span:nth-child(4) { animation-delay: .3s; }
+  h1 span:nth-child(5) { animation-delay: .4s; }
+  h1 span:nth-child(6) { animation-delay: .5s; }
+  h1 span:nth-child(7) { animation-delay: .6s; }
+  h1 span:nth-child(8) { animation-delay: .7s; }
+  
+  @keyframes bounce {
+    100% {
+      top: -5px;
+      text-shadow: 0 1px 0 #CCC,
+                   0 2px 0 #CCC,
+                   0 3px 0 #CCC,
+                   0 4px 0 #CCC,
+                   0 5px 0 #CCC,                      
+                   0 6px 0 #CCC,
+                   0 7px 0 #CCC,
+                   0 8px 0 #CCC,
+                   0 9px 0 #CCC,
+                   0 50px 25px rgba(0, 0, 0, .2);
+    }
+  }
+  .banner-subtitle {
+    font-size: 1rem;
+    margin-bottom: 0px;
+    
+  }
+  
+  .highlight-ok {
+    font-size: 1em;
+    color: #ff0000;
+  }
+
+  .highlight-special {
+    font-size: 1.1em;
+    text-shadow: none;
+    color: #ff0000;
+    text-shadow: 2px 2px 4px rgb(255, 239, 239);
+  }
+
+  .room-list {
+    padding: 5px;
+    font-size: 14px;
+    margin-bottom: 10px;
+    word-wrap: break-word;
+  }
+
+  .create-room-section {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  .tooltip {
+    bottom: -10px;
+    font-size: 0.5rem;
+  }
+
+  .refresh-btn {
+    display: flex;
+    gap: 0px;
+  }
+  
+  .refresh-btn button,
+  .join-room-btn,
+  .createroom-btn button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    transition: background 0.2s ease;
+  }
+  
+  .refresh-btn button:hover,
+  .join-room-btn:hover,
+  .createroom-btn button:hover {
+    background: rgba(0,0,0,0.05);
+    border-radius: 4px;
+  }
+  
+  .refresh-icon,
+  .createroom-icon,
+  .joinroom-icon {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    display: block;
+  }
+  
+}
+
+.lobby-image{
+  width: 100%;
+  height: auto;
+}

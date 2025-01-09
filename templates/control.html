@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control Page</title>
+    <!-- Vue CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js" defer></script>
+    <!-- Socket.IO 클라이언트 라이브러리 로드 -->
+    <script src="https://cdn.socket.io/4.5.3/socket.io.min.js"></script>
+
+    <!-- control.js 로드 -->
+    <script src="{{ url_for('static', filename='js/control.js') }}" defer></script>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/control.css') }}">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7311759917249115"
+     crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="app">
+        <h1>영상 제어 패널</h1>
+
+        <div class="video-control-panel">
+            <!-- PIN 영역 -->
+            <div class="pin-area">
+                <label for="pinInput">PIN: </label>
+                <input type="text" id="pinInput" v-model="pin" placeholder="PIN 입력" />
+                <button class="join-button" @click="joinRoom">룸 참가</button>
+            </div>
+
+            <!-- 제어 버튼들 -->
+            <div class="button-grid">
+                <button @click="sendCommand('play')" title="재생">
+                    <img src="{{ url_for('static', filename='image/free-icon-play-button-375.png') }}" alt="Play" />
+                </button>
+                <button @click="sendCommand('pause')" title="일시정지">
+                    <img src="{{ url_for('static', filename='image/free-icon-pause-button-7693281.png') }}" alt="Pause" />
+                </button>
+                <button @click="sendCommand('stop')" title="정지">
+                    <img src="{{ url_for('static', filename='image/free-icon-stop-button-2914.png') }}" alt="Stop" />
+                </button>
+            </div>
+            <div class="button-grid second-row">
+                <button @click="sendCommand('forward', 10)" title="10초 앞으로">
+                    <img src="{{ url_for('static', filename='image/free-icon-next-11478230.png') }}" alt="Forward" />
+                </button>
+                <button @click="sendCommand('backward', 10)" title="10초 뒤로">
+                    <img src="{{ url_for('static', filename='image/free-icon-back-11478183.png') }}" alt="Backward" />
+                </button>
+                <button @click="sendCommand('mute')" title="음소거">
+                    <img src="{{ url_for('static', filename='image/free-icon-mute-5949045.png') }}" alt="Mute" />
+                </button>
+                <button @click="sendCommand('unmute')" title="음소거 해제">
+                    <img src="{{ url_for('static', filename='image/free-icon-audio-control-button-17533.png') }}" alt="Unmute" />
+                </button>
+            </div>
+
+            <!-- 자막 목록 표시 -->
+            <div class="subtitle-panel">
+                <h2>자막 정보</h2>
+                <ul class="subtitle-list">
+                    <li 
+                        v-for="(line, index) in subtitleLines" 
+                        :key="index" 
+                        v-html="line"
+                        @click="handleSubtitleClick(line)" 
+                        class="subtitle-item"
+                    ></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

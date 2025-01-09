@@ -1,0 +1,85 @@
+/* 전역 스타일 */
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #FF8A80, #FF5252); /* 부드러운 레드 톤 */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #fff;
+}
+
+/* 로그인 카드 스타일 */
+.login-card {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    width: 350px;
+    padding: 30px;
+    text-align: center;
+}
+
+.login-card h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #fff;
+}
+
+
+/* 입력 필드 스타일 */
+.login-card input[type="email"],
+.login-card input[type="password"] {
+    width: 80%; /* 카드 안에서 적절한 너비로 설정 */
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.3);
+    color: #fff;
+    font-size: 14px;
+    outline: none;
+    transition: background-color 0.3s ease;
+}
+
+.login-card input[type="email"]:focus,
+.login-card input[type="password"]:focus {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* 버튼 스타일 */
+.login-card button {
+    width: 100%;
+    padding: 12px 15px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 25px;
+    background: #4CAF50;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.login-card button:hover {
+    background: #45a049;
+}
+
+/* 회원가입 링크 스타일 */
+.login-card p {
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.login-card a {
+    color: #00c8ff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.login-card a:hover {
+    color: #ffffff;
+}

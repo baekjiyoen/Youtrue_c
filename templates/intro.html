@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/intro.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Gugi&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/vue@3" defer></script>
+  <script src="{{ url_for('static', filename='js/intro.js') }}" defer></script>
+  <title>Intro Screen</title>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7311759917249115"
+     crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="video-background">
+      <!-- preload를 auto로 변경해 비디오 로딩을 빠르게 시도 -->
+      <video src="{{ url_for('static', filename='video/intro.mp4') }}" autoplay muted playsinline loop preload="auto"></video>
+    </div>
+
+    <div class="overlay">
+      <img src="{{ url_for('static', filename='image/logo_youtrue4.png') }}" class="animated-img" alt="Go YouTrue" onclick="goToMain()">
+    </div>
+  </div>
+</body>
+</html>

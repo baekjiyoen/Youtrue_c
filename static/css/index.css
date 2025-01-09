@@ -1,0 +1,666 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Noto Sans KR', sans-serif;
+  background:
+    /* 캔디케인 스트라이프 패턴 (흰색과 연한 붉은색) */
+    repeating-linear-gradient(45deg,
+      rgba(255,255,255,0.05),
+      rgba(255,255,255,0.05) 10px,
+      rgba(178,34,34,0.15) 10px,
+      rgba(178,34,34,0.15) 20px
+    ),
+    /* 좌상단 트리 녹색 빛 */
+    radial-gradient(circle at top left, rgba(0,128,0,0.3), transparent 50%),
+    /* 우상단 황금빛 장식 */
+    radial-gradient(circle at top right, rgba(255,215,0,0.1), transparent 40%),
+    /* 하단 우측 눈빛 반사 */
+    radial-gradient(circle at bottom right, rgba(255,255,255,0.2), transparent 50%),
+    /* 기본 따뜻한 붉은 배경 */
+    #b22222;
+  background-size: cover;
+  background-attachment: fixed; /* 스크롤해도 배경 고정 */
+
+}
+
+
+
+/* 눈 내리는 효과 */
+.snowflakes {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.snowflake {
+  position: absolute;
+  top: -10%;
+  font-size: 1.5rem;
+  color: #fff;
+  animation-name: snow;
+  animation-duration: 10s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes snow {
+  0% { transform: translateY(0); opacity:1; }
+  80% { opacity:1; }
+  100% { transform: translateY(100vh); opacity:0; }
+}
+
+.snowflake:nth-child(1) { left: 10%; animation-delay: 0s; }
+.snowflake:nth-child(2) { left: 20%; animation-delay: 2s; }
+.snowflake:nth-child(3) { left: 30%; animation-delay: 4s; }
+.snowflake:nth-child(4) { left: 50%; animation-delay: 1s; }
+.snowflake:nth-child(5) { left: 65%; animation-delay: 3s; }
+.snowflake:nth-child(6) { left: 75%; animation-delay: 5s; }
+.snowflake:nth-child(7) { left: 85%; animation-delay: 1.5s; }
+.snowflake:nth-child(8) { left: 95%; animation-delay: 2.5s; }
+
+/* 배너 스타일 */
+.banner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #fff; /* 텍스트 색상 */
+  padding: 20px 20px; /* 상하/좌우 패딩 */
+  border-radius: 10px; /* 배너 모서리 둥글게 */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+  margin: 20px auto; /* 상하 여백 및 가운데 정렬 */
+  max-width: 800px; /* 최대 너비 설정 */
+  position: relative;
+  overflow: hidden; /* 별 배경 잘라내기 */
+  background: url('/static/image/star\ image.jpg') repeat; /* 별 이미지 반복 */
+  animation: twinkle-stars 10s linear infinite; /* 배경 반짝이는 애니메이션 */
+}
+
+/* 별 배경 움직이기 */
+@keyframes twinkle-stars {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 50px 50px;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+/* 제목 스타일 */
+h1 {
+  height: 100px;
+}
+
+h1 span {
+  position: relative;
+  display: inline-block;
+  animation: bounce 2s ease infinite alternate;
+  font-family: 'Gugi', cursive;
+  font-size: 80px;
+  color: #FFF;
+  text-shadow: 0 1px 0 #CCC,
+               0 2px 0 #CCC,
+               0 3px 0 #CCC,
+               0 4px 0 #CCC,
+               0 5px 0 #CCC,
+               0 6px 0 transparent,
+               0 7px 0 transparent,
+               0 8px 0 transparent,
+               0 9px 0 transparent,
+               0 10px 10px rgba(0, 0, 0, .4);
+}
+
+h1 span:nth-child(2) { animation-delay: .1s; }
+h1 span:nth-child(3) { animation-delay: .2s; }
+h1 span:nth-child(4) { animation-delay: .3s; }
+h1 span:nth-child(5) { animation-delay: .4s; }
+h1 span:nth-child(6) { animation-delay: .5s; }
+h1 span:nth-child(7) { animation-delay: .6s; }
+h1 span:nth-child(8) { animation-delay: .7s; } 
+
+@keyframes bounce {
+  100% {
+    top: -5px;
+    text-shadow: 0 1px 0 #CCC,
+                 0 2px 0 #CCC,
+                 0 3px 0 #CCC,
+                 0 4px 0 #CCC,
+                 0 5px 0 #CCC,
+                 0 6px 0 #CCC,
+                 0 7px 0 #CCC,
+                 0 8px 0 #CCC,
+                 0 9px 0 #CCC,
+                 0 50px 25px rgba(0, 0, 0, .2);
+  }
+}
+/* 설명 스타일 */
+.banner-subtitle {
+  font-size: 1.2rem;
+  margin: 0;
+  opacity: 0.9; /* 살짝 흐리게 */
+  font-weight: 300;
+  font-family: 'Gugi';
+}
+
+.highlight-ok {
+  color: #ff3333; /* 강조 색상 (주황색) */
+  font-weight: bold; /* 굵은 글씨 */
+  font-size: 1.1em; /* 글씨 크기 약간 키움 */
+}
+
+/* '싹쓰리' 강조 스타일 */
+.highlight-special {
+  color: #ff1e1e; /* 파란색 강조 */
+  font-weight: bold; /* 굵은 글씨 */
+  font-size: 1.2em; /* 글씨 크기 더 키움 */
+  text-shadow: 2px 2px 4px rgb(255, 239, 239); /* 그림자 효과 추가 */
+}
+
+
+/* 반응형 디자인 - 모바일 화면 */
+@media (max-width: 768px) {
+  .banner {
+    width: 90%; /* 너비를 90%로 조정하여 양옆에 공간 확보 */
+    margin: 20px auto; 
+    padding: 20px 10px; /* 좌우 패딩을 추가해 여백 확보 */
+  }
+
+  .search-area {
+    width: 85%;
+    margin: 10px auto; /* 좌우 여백 확보 */
+    padding: 20px 10px; /* 좌우 패딩 추가 */
+  }
+
+  .recommended-section, 
+  .popular-channels-section {
+    width: 85%;
+    margin: 10px auto;
+    padding: 20px 10px;
+  }
+  
+  h1 {
+    height: 100px;
+  }
+  
+  h1 span {
+    position: relative;
+    top: 20px;
+    display: inline-block;
+    animation: bounce  ease infinite alternate;
+    font-family: 'Gugi', cursive;
+    font-size: 50px;
+    color: #FFF;
+    text-shadow: 0 1px 0 #CCC,
+                 0 2px 0 #CCC,
+                 0 3px 0 #CCC,
+                 0 4px 0 #CCC,
+                 0 5px 0 #CCC,
+                 0 6px 0 transparent,
+                 0 7px 0 transparent,
+                 0 8px 0 transparent,
+                 0 9px 0 transparent,
+                 0 10px 10px rgba(0, 0, 0, .4);
+  }
+  
+  h1 span:nth-child(2) { animation-delay: .1s; }
+  h1 span:nth-child(3) { animation-delay: .2s; }
+  h1 span:nth-child(4) { animation-delay: .3s; }
+  h1 span:nth-child(5) { animation-delay: .4s; }
+  h1 span:nth-child(6) { animation-delay: .5s; }
+  h1 span:nth-child(7) { animation-delay: .6s; }
+  h1 span:nth-child(8) { animation-delay: .7s; }
+  
+  @keyframes bounce {
+    100% {
+      top: -5px;
+      text-shadow: 0 1px 0 #CCC,
+                   0 2px 0 #CCC,
+                   0 3px 0 #CCC,
+                   0 4px 0 #CCC,
+                   0 5px 0 #CCC,                      
+                   0 6px 0 #CCC,
+                   0 7px 0 #CCC,
+                   0 8px 0 #CCC,
+                   0 9px 0 #CCC,
+                   0 50px 25px rgba(0, 0, 0, .2);
+    }
+  }
+
+  .banner-subtitle {
+    font-size: 1rem; /* 설명 크기 축소 */
+    font-family: 'Gugi';
+  }
+  .highlight-ok {
+    font-size: 1em; /* 모바일에서는 폰트 크기 줄임 */
+    color: #ff0000; /* 더 선명한 주황색 */
+  }
+  
+  .highlight-special {
+    font-size: 1.1em; /* 모바일 폰트 크기 줄임 */
+    text-shadow: none; /* 그림자 제거로 가독성 높임 */
+    color: #ff0000; /* 더 진한 파란색 */
+    text-shadow: 2px 2px 4px rgb(255, 239, 239);
+  }
+}
+
+/* 추천 영상 카드 레이아웃 스타일 */
+.recommended-section {
+  max-width: 800px;
+  margin: 20px auto;
+  background: #fff;
+  padding: 5px 20px 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: max-height 1s ease;
+}
+.recommended-title {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.recommended-container {
+  overflow-x: auto;
+  position: relative;
+  white-space: nowrap;
+  scrollbar-width: none;
+}
+
+.recommended-container::-webkit-scrollbar {
+  display: none;
+}
+
+.recommended-card {
+  display: inline-block;
+  width: 260px;
+  margin-right: 20px;
+  border-radius: 8px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.recommended-card img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.recommended-card p{
+  font-family: 'Noto Sans KR', sans-serif;
+  
+}
+
+.search-area {
+  max-width:800px;
+  margin:0 auto;
+  background: rgba(255, 255, 255, 0.9); /* 약간 투명하게 */
+  padding:20px;
+  border-radius:8px;
+  box-shadow:0 0 10px rgba(0,0,0,0.1);
+  overflow: hidden;
+  transition: max-height 1s ease;
+}
+
+.search-area.initial {
+  max-height: 100px; /* 검색창만 보이는 상태 */
+}
+
+.search-area.loading {
+  max-height: 200px; /* 로딩중일 때 중간 정도 확장 */
+}
+
+.search-area.results {
+  max-height: 1000px; /* 결과 보여줄 때 크게 확장 (필요시 조절) */
+}
+
+
+/* 나머지 스타일은 동일 */
+.search-input-group {
+  display:flex;
+  gap:10px;
+  margin-bottom:20px;
+}
+
+.search-input {
+  flex:1;
+  padding:10px;
+  border:1px solid #ccc;
+  border-radius:4px;
+  font-size:1em;
+}
+
+
+.search-input {
+  position: relative;
+  width: 230px;
+  height: 40px;
+  padding: 12px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  background: linear-gradient(to right, #d9d9d9, #f8f8f8);
+  font-size: 16px;
+  color: #555;
+  outline: none;
+  transition: box-shadow 0.3s ease, background 0.3s ease, color 0.3s ease,
+    border-color 0.3s ease, transform 0.3s ease;
+  transform-style: preserve-3d;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.2) inset; /* Improved box-shadow for a realistic feel */
+}
+
+.search-input:focus,
+.search-input:not(:placeholder-shown) {
+  border-color: #eff5ef;
+  background: linear-gradient(to right, #ffffff, #f0f0f0);
+  transform: rotateX(20deg);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1), 0 0 10px rgba(0, 0, 0, 0.2) inset; /* Improved box-shadow on focus */
+}
+
+.search-input:focus + .label,
+.search-input:not(:placeholder-shown) + .label {
+  transform: translateY(-120%) scale(0.8);
+  font-size: 12px;
+  color: #e2e2e2;
+  text-shadow: 0 0 5px rgba(255, 202, 171, 0.6);
+}
+
+.search-input:hover {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1), 0 0 10px rgba(0, 0, 0, 0.2) inset; /* Improved box-shadow on hover */
+  background: linear-gradient(to right, #e6e6e6, #f9f9f9);
+  border-color: #999;
+}
+
+
+
+.search-input:not(:focus):not(:placeholder-shown) + .clear-button {
+  opacity: 1;
+}
+
+
+.search-input:focus + .shine {
+  opacity: 1;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  color: #999;
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.3s ease, filter 0.3s ease;
+  border-radius: 50%;
+}
+
+.search-input:focus + .search-icon {
+  color: #ffffff;
+  transform: translateY(-50%) scale(1.1);
+  filter: drop-shadow(0 0 5px rgba(241, 255, 241, 0.904));
+}
+
+@keyframes inputPulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.search-input:focus {
+  animation: inputPulse 0.5s ease;
+}
+
+
+.search-button {
+  background: #000;
+  border:none;
+  color:#ffffff;
+  padding:0 20px;
+  font-size:1em;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+.search-button:hover {
+  background:#353535;
+}
+
+.spinner {
+  text-align:center;
+  margin-top:20px;
+}
+
+.loader {
+  border: 8px solid #f3f3f3; 
+  border-top:8px solid #3498db; 
+  border-radius:50%;
+  width:50px;
+  height:50px;
+  animation: spin 2s linear infinite;
+  margin:20px auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.results-title {
+  font-weight:bold;
+  font-size:1.2em;
+  margin-bottom:15px;
+}
+
+.video-list {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  max-height: 80vh;
+  gap: 16px;
+  padding: 20px 0; 
+  margin:0;
+  list-style:none;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+@media screen and (max-width: 768px) { 
+  .video-list {
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 16px;
+    padding: 20px 0; 
+    margin:0;
+    list-style:none;
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+  .video-list::-webkit-scrollbar {
+    width: 8px; 
+  }
+  
+  .video-list::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+  
+  .video-list::-webkit-scrollbar-thumb {
+    background: #888; 
+  }
+  
+  .video-list::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .video-item {
+    display: block !important;
+    flex: 0 0 auto;
+    width: 200px; 
+    background: #fff; 
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow:0 2px 4px rgba(0,0,0,0.1);
+    scroll-snap-align: start;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.video-info p {
+  margin: 5px 0;
+  font-size:0.9em;
+  color:#333;
+}
+
+}
+
+.video-list::-webkit-scrollbar {
+  width: 8px; 
+}
+
+.video-list::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+
+.video-list::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+.video-list::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+.video-item {
+  display: flex; /*썸네일과 텍스트를 가로로 나란히 배치*/
+  align-items: center; /* 세로 중앙 정렬 */
+  gap: 16px; /* 이미지와 텍스트 사이 여백 */
+  background: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.video-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.video-link {
+  display: block;
+  margin-bottom: 10px;
+  text-decoration:none;
+  text-align: center;
+}
+
+.video-thumbnail {
+  width: 200px; /* 이미지 너비 설정 */
+  height: auto; /* 비율 유지 */
+  border-radius: 8px; /* 이미지 둥글게 */
+}
+
+.video-item:hover .video-thumbnail {
+  transform: scale(1.02);
+}
+
+.video-info {
+  display: flex;
+  flex-direction: column; /* 정보를 세로로 표시 */
+  gap: 5px; /* 정보 간격 */
+  font-size: 0.9em;
+  color: #333;
+}
+
+.video-info p {
+  margin: 0; /* 기본 여백 제거 */
+  line-height: 1.5; /* 줄 간격 설정 */
+}
+
+
+.video-info p strong {
+  color:#555;
+}
+
+.no-results {
+  text-align:center;
+  font-size:1em;
+  color:#666;
+  margin-top:20px;
+}
+
+/* 슬라이드 트랙: 모든 카드가 일렬로 세워지고, 
+  애니메이션으로 왼쪽으로 이동할 것 */
+.slide-track {
+  display: inline-flex;
+  white-space: nowrap;
+}
+
+/* 인기 채널 섹션 스타일 */
+.popular-channels-section {
+  max-width: 800px;
+  margin: 20px auto;
+  background: #f9f9f9;
+  padding: 15px 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.popular-channels-title {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/* 채널 카드 컨테이너 */
+.popular-channels-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+}
+
+/* 개별 채널 카드 */
+.popular-channel-card {
+  width: 120px;
+  text-align: center;
+  background: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.popular-channel-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* 채널 썸네일 */
+.channel-thumbnail {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  object-fit: cover;
+}
+
+/* 채널 제목 */
+.channel-title {
+  font-size: 0.9em;
+  color: #555;
+  word-break: break-word;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Vue 3 CDN -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js" defer></script>
+    <!-- YouTube IFrame Player API 로드 -->
+    <script src="https://www.youtube.com/iframe_api" defer></script>
+    <!-- Socket.IO 클라이언트 -->
+    <script src="https://cdn.socket.io/4.5.3/socket.io.min.js"></script>
+    <!-- QRCode.js 라이브러리 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
+    
+
+    <script>
+      var video_id = {{ video_id|tojson }};
+      var script = {{ script|tojson }};
+      var summary = {{ summary|tojson }};
+      
+      var pin = {{ pin|tojson }};
+    </script>
+
+    <!-- js/css 로드 -->
+    <script src="{{ url_for('static', filename='js/media.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/menu.js') }}" defer></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/media.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gugi&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Chewy&display=swap" rel="stylesheet">
+    <title>Media Page</title>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7311759917249115"
+     crossorigin="anonymous"></script>
+</head>
+<body>
+  <div id="loading" class="bubble-effect">이제 즐기세요!</div>
+  <div id="menu">
+    {% include "menu.html" %}
+  </div>
+    <!-- 상단 영역: 영상(좌측), 자막(우측) -->
+    <div id="app" class="hidden">
+      <div id="top-container">
+        <div id="video-container">
+          <div id="player"></div>
+          <!-- PIN 및 QR코드 영역을 감싸는 래퍼 컨테이너 -->
+          <div id="pin-and-qr-container">
+            <div id="pin-area">
+                <label for="pinInput">PIN: </label>
+                <input type="text" id="pinInput" :value="currentPin" readonly placeholder="PIN 표시" />
+                <button @click="handleControllerClick">controller</button>
+                <img 
+                  src="{{ url_for('static', filename='image/copyright_logo/greyscale_@3x.png') }}"
+                  alt="이미지 설명"
+                  class="pin-image">
+            </div>
+            <!-- QR코드 표시 영역 -->
+        
+            <div id="qr-code-container" v-if="showQRCode"></div>
+          </div>
+        </div>
+
+        <div id="subtitles-area" >
+          <h2><img src="/static/image/light.png" class="light-image">자막<img src="/static/image/light.png" class="light-image"></h2>
+          <ul class="subtitles-list" id="subtitles-list">
+            <li 
+              v-for="(subtitle, index) in script" 
+              :key="index" 
+              @click="handleSubtitleClick(subtitle)" 
+              class="subtitle-item" 
+              v-html="subtitle"
+            ></li>
+          </ul>
+        </div>
+      </div>
+      <!-- 하단 영역: 요약 정보 -->
+      <div id="summary-area">
+          <h2><img src="/static/image/light.png" class="light2-image">AI 요약 정보<img src="/static/image/light.png" class="light2-image"></h2>
+          <textarea id="summary-textarea" :value="summary" readonly></textarea>
+      </div>
+    </div>
+</body>
+</html>

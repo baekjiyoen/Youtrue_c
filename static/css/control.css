@@ -1,0 +1,217 @@
+/* 기본 레이아웃 및 배경 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding-top: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+/* 컨테이너 */
+#app {
+    width: 100%;
+    max-width: 400px;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+/* 영상 제어 패널 */
+.video-control-panel {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+/* PIN 영역 */
+.pin-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+    justify-content: flex-start; /* 좌측 정렬 */
+}
+
+.pin-area label {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+#pinInput {
+    flex: 1;
+    padding: 8px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    min-width: 150px; /* 최소 너비 설정 */
+    height: 40px; /* PIN 박스 높이 설정 */
+    line-height: 40px; /* 텍스트 세로 정렬 */
+}
+
+.join-button {
+    background-color: #007BFF;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    border-radius: 5px;
+    box-sizing: border-box;
+    white-space: nowrap; /* 텍스트가 가로로 나오게 설정 */
+    height: 40px; /* 룸 참가 버튼 높이 설정 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0; /* 버튼 크기 고정 */
+    max-width: 150px; /* 버튼 너비 제한 */
+    width: auto; /* 자동 크기 조정 */
+}
+
+.join-button:hover {
+    background-color: #0056b3;
+}
+
+/* 버튼 그리드 */
+.button-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px; /* 행과 열 모두 10px 여백 설정 */
+    margin: 0 10px; /* 그리드의 왼쪽과 오른쪽에 10px의 여백을 추가 */
+    margin-bottom: 10px; /* 버튼 그리드 아래 여백 추가 */
+    width: calc(100% - 20px); /* 외부 여백을 고려하여 100% 너비를 맞춤 */
+    box-sizing: border-box; /* 패딩과 마진을 포함한 너비 계산 */
+}
+
+.button-grid.second-row {
+    grid-template-columns: repeat(4, 1fr); /* 두 번째 줄은 3개의 버튼을 균등하게 배치 */
+    margin-top: 10px; /* 첫 번째 줄과 두 번째 줄 사이 여백 추가 */
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    box-sizing: border-box;
+    padding: 0;
+}
+
+/* 첫 번째 줄의 버튼 크기 (3개) */
+.button-grid .first-row button {
+    width: 100%; /* 첫 번째 줄의 버튼 너비는 부모 그리드에 맞게 조정 */
+    height: 50px;
+}
+
+/* 두 번째 줄의 버튼 크기 (4개) */
+.button-grid .second-row button {
+    width: 100%; /* 두 번째 줄의 버튼 너비는 부모 그리드에 맞게 조정 */
+    height: 50px;
+}
+
+button img {
+    width: 20px;
+    height: 20px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* 자막 정보 섹션 */
+.subtitle-panel {
+    margin-top: 20px;
+}
+
+.subtitle-panel h2 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.subtitle-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-height: 200px; /* 스크롤 가능하도록 제한 */
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: #fff;
+}
+
+.subtitle-item {
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    font-size: 0.9rem;
+    line-height: 1.4rem;
+    color: #333;
+}
+
+.subtitle-item:last-child {
+    border-bottom: none;
+}
+
+.subtitle-item:hover {
+    background-color: #f0f0f0;
+}
+
+/* 반응형 대응 */
+@media (max-width: 480px) {
+    /* 휴대폰 화면에서 PIN 입력과 룸 참가 버튼 가로 배치 */
+    .pin-area {
+        flex-direction: row; /* 가로로 배치 */
+        align-items: center; /* 세로 정렬 */
+        gap: 10px;
+    }
+
+    /* 버튼 및 입력 필드 크기 조정 */
+    #pinInput {
+        min-width: 120px; /* 모바일에서 작은 크기 조정 */
+        height: 40px; /* 모바일에서도 PIN 박스 높이 고정 */
+    }
+
+    .join-button {
+        flex-shrink: 0; /* 버튼 크기 고정 */
+        height: 40px; /* 모바일에서도 룸 참가 버튼 높이 고정 */
+        max-width: 120px; /* 모바일 화면에서 버튼 너비 제한 */
+    }
+
+    .button-grid {
+        grid-template-columns: repeat(3, 1fr); /* 모바일에서는 4개의 버튼씩 배치 */
+        margin: 0 10px; /* 모바일에서도 동일하게 여백을 설정 */
+        width: calc(100% - 20px); /* 외부 여백을 고려하여 너비 맞춤 */
+    }
+
+    .button-grid .first-row button {
+        height: 50px; /* 모바일에서도 첫 번째 줄 버튼 높이 고정 */
+    }
+
+    .button-grid .second-row button {
+        height: 50px; /* 모바일에서 두 번째 줄 버튼 크기 조정 */
+    }
+
+    button {
+        width: 100%; /* 모바일에서도 버튼 크기를 그리드에 맞게 확장 */
+    }
+}
